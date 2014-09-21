@@ -375,6 +375,8 @@ getAverageDataBySubjectAndActivity <- function (data) {
 ## @return A list with two tidy data sets (data and averageData).
 runAnalysis <- function ( ) {
 	library (plyr)
+	library (data.table)
+
 	cat ("Running analysis to create the tidy data set...\n")
 
 	cat ("  Loading feature names...")
