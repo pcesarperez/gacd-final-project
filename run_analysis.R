@@ -31,16 +31,6 @@ ACTIVITY_LABEL_COL_NAME <- "activity.label"
 ## Helper functions.
 ## ----------------------------------------------------------------------------
 
-## Creates a data folder to hold the results of the data cleaning.
-##
-## @param dataFolder Path of the data folder to create. If none specified, DATA_FOLDER is used.
-createDataFolder <- function (dataFolder=DATA_FOLDER) {
-	if (!file.exists (DATA_FOLDER)) {
-		dir.create (DATA_FOLDER)
-	}
-}
-
-
 ## Gets the path to the `subject_test.txt` file.
 ## The file contains information about the subjects of the test data set.
 ## Each subject is identified by a number in the range 1..30.

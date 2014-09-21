@@ -127,6 +127,86 @@ These are the rules used to change the column names in the first tidy data set:
 
 Using the first tidy data set as a source, the function `getAverageDataBySubjectAndActivity ( )` just performs a `ddply ( )` (package `plyr`) over the columns `subject.id` and `activity.label` to summarize each feature using the mean.
 
+##Analysis functions
+
+###`getFeatureNames ( )`
+
+This function gets the feature names for the analysis, reading the file `features.txt` and returning a character vector with the names read.
+
+###`getActivityLabels ( )`
+
+This function gets the activity labels for the analysis in a data frame with two columns (activity id and activity label), reading the file `activity_labels.txt`. A data frame is returned to perform a merge with the data set through the activity id column.
+
+###`loadTestDataSet ( )`
+
+This function loads the "test" data set, reading the files `subject_test.txt`, `x_test.txt` and `y_test.txt` and clipping them together in a single data frame.
+
+###`loadTrainDataSet ( )`
+
+This function loads the "train" data set, reading the files `subject_train.txt`, `x_train.txt` and `y_train.txt` and clipping them together in a single data frame.
+
+###`mergeDataSets ( )`
+
+This function merge the "test" and "train" data sets in a single data frame.
+
+###`extractMeanStdMeasurements ( )`
+
+This function uses a filtered list of feature names to wipe out the columns not related to mean and standard deviation in the data frame.
+
+###`replaceActivityIdByLabel ( )`
+
+This functions merges the data set and the activity labels data set to get a new data set with the activity label for each observation, later removing the column with the activity ids and reordering the columns to put the activity label besides the subject id. The feature columns are untouched.
+
+###`assignDescriptiveVariableNames ( )`
+
+This function performs a series of `gsub ( )` regexpr substitutions to replace certain mnemonics for their verbose counterpart. See "Assigning descriptive variable names" for details.
+
+###`getAverageDataBySubjectAndActivity ( )`
+
+This function uses the `ddply ( )` function in the package `plyr` to summarize the first tidy data set using `subject.id` and `activity.label` as pivotal columns to get the average of each feature.
+
+##Auxiliary functions
+
+###`getTestSubjectsPath ( )`
+
+This function returns the path of the `subject_test.txt` file.
+
+###`getTrainSubjectsPath ( )`
+
+This function returns the path of the `subject_train.txt` file.
+
+###`getTestActivitiesPath ( )`
+
+This function returns the path of the `y_test.txt` file.
+
+###`getTrainActivitiesPath ( )`
+
+This function returns the path of the `y_train.txt` file.
+
+###`getTestFeaturesPath ( )`
+
+This function returns the path of the `x_test.txt` file.
+
+###`getTrainFeaturesPath ( )`
+
+This function returns the path of the `x_train.txt` file.
+
+###`getFeatureNamesPath ( )`
+
+This function returns the path of the `features.txt` file.
+
+###`filterFeatureNamesByMeanAndStd ( )`
+
+This functions uses a regular expression to detect features related to mean (containing `mean()`) and standard deviation (containing `std()`). The function returns the feature names vector with the detected columns only.
+
+###`replaceOffendingCharacters ( )`
+
+This function replaces the "offending characters" in the feature names vector, replacing them with a dot (`.`) to get valid column names.
+
+###`getActivityLabelsPath ( )`
+
+This function returns the path of the `activity_labels.txt` file.
+
 ##Constants
 
 There are certain constants declared in the script to avoid typing errors and to reuse code as much as possible. These are the constantes used through the script:
@@ -150,7 +230,3 @@ There are certain constants declared in the script to avoid typing errors and to
 * `FEATURE_NAME_COL_NAME`: Column name in the feature data frame regarding the feature name.
 * `ACTIVITY_ID_COL_NAME`: Column name in the activity labels data frame regarding the activity id.
 * `ACTIVITY_LABEL_COL_NAME`: Column name in the activity labels data frame regarding the activity label.
-
-##Auxiliary functions
-
-##Analysis functions
