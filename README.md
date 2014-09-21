@@ -36,6 +36,70 @@ We will show the functions in reverse order, to go from the general and most imp
 
 ##Main analysis script
 
+The main analysis script is a function named `runAnalysis ( )`. This function reads certain data files of the experiment and returns a list with two tidy data sets:
+
+* `data`: A tidy data set with mean and standard deviation variables along with activity names and subject ids.
+* `averageData`: A tidy data set with the mean of each feature for each (subject id/activity label) pair.
+
+The files read by the function are:
+
+* `subject_test.txt`: Ids of the subjects involved in the "test" sub-experiment.
+* `x_test.txt`: Observations (features) of the "test" sub-experiment.
+* `y_test.txt`: Activities of the "test" sub-experiment.
+* `subject_train.txt`: Ids of the subjects involved in the "train" sub-experiment.
+* `x_train.txt`: Observations (features) of the "train" sub-experiment.
+* `y_train.txt`: Activities of the "train" sub-experiment.
+
+These are the steps involved to perform the analysis:
+
+###Loading of the feature names
+
+The feature names are loaded into a character vector using the `getFeatureNames ( )` function.
+
+This function reads the `features.txt` file and gets the mnemonic name of each feature. These names are not adjusted. The result will be used to load the "test" and "train" data sets with proper names.
+
+###Loading of the activity labels
+
+The activity labels are loaded into a data frame using the `getActivityLabels ( )` function.
+
+This function reads the `activity_labels.txt` file and gets the mapping between activity ids, present in the data files, and the activity labels. The result will be used to replace the activity ids in the tidy data set for their corresponding activity names.
+
+###Loading of the "test" data set
+
+This function, called `loadTestDataSet ( )`, reads the files of the "test" data set and clip them together (through the `cbind ( )` function) to obtain a data set structured as follows:
+
+* `subject`: Column holding the subject id of each observation.
+* `activity`: Column holding the activity id of each observation.
+* 561 additional columns, one for each feature observed.
+
+The function uses a character vector with the names of the features, as they were obtained through `getFeatureNames ( )` function.
+
+###Loading of the "train" data set
+
+This function, called `loadTrainDataSet ( )`, reads the files of the "train" data set and clip them together (through the `cbind ( )` function) to obtain a data set structured as follows:
+
+* `subject`: Column holding the subject id of each observation.
+* `activity`: Column holding the activity id of each observation.
+* 561 additional columns, one for each feature observed.
+
+The function uses a character vector with the names of the features, as they were obtained through `getFeatureNames ( )` function.
+
+###Merge of the "test" and "train" data sets
+
+With the two data sets corresponding to the "test" and "train" sub-experiments loaded, the function `mergeDataSets ( )` justs performs a `rbind ( )` of them to get a general data set with the same structure of the partial data sets, containing observations for all the subjects.
+
+###Filtering of the mean and standard deviation columns
+
+To filter out the columns not related to mean and standar deviation, we have used two helper functions (`replaceOffendingCharacters ( )` and `filterFeatureNamesByMeanAndStd ( )`). Using these two functions, we can obtain a character vector with the feature names corresponding to the required measures, without forbidden characters in column names, as follows:
+
+    filteredFeatureNames <- replaceOffendingCharacters (filterFeatureNamesByMeanAndStd (featureNames))
+
+###Replacing the activity ids by their names
+
+###Assigning descriptive variable names
+
+###Obtaining a data set grouped by subject id and activity label
+
 ##Constants
 
 ##Auxiliary functions
