@@ -94,13 +94,62 @@ To filter out the columns not related to mean and standar deviation, we have use
 
     filteredFeatureNames <- replaceOffendingCharacters (filterFeatureNamesByMeanAndStd (featureNames))
 
+Using the filtered feature names, we use the `extractMeanStdMeasurements ( )` to get rid of the columns not included in the `filteredFeatureNames` vector.
+
 ###Replacing the activity ids by their names
+
+The function `replaceActivityIdByLabel ( )` takes the data set and the activity labels loaded through `getActivityLabels ( )` and merge them together using the activity id as pivotal column (through the `merge ( )` function). Once merged these two data sets, the function gets rid of the activity id column (no longer needed) and reorders the columns to put the activity label column besides the subject id column.
 
 ###Assigning descriptive variable names
 
+The final step to obtain the first tidy data set is performed through the function `assignDescriptiveVariableNames ( )`. This functions applies a series of regular expression substitutions (using `gsub ( )`) to replace each part of the column names with more descriptive names. The descriptive names have been roughtly extracted from the file `features_info.txt`.
+
+These are the rules used to change the column names in the first tidy data set:
+
+* All feature names will be in lowercase.
+* The individual parts of the feature will be separated by a dot (`.`).
+* The subject column will be renamed to `subject.id` (this is a direct change).
+* `t`, at the beginning of the name, is replaced by `time.`.
+* `f`, at the beginning of the name, is replaced by `frequency.`.
+* `Acc`" is replaced by `accelerometer.`.
+* `Gyro` is replaced by `gyroscope.`.
+* `Jerk` is replaced by `shake.`.
+* `Mag` is replaced by `magnitude.`.
+* `std` remains the same.
+* `mean` remains the same.
+* `Body` is replaced by `body.`.
+* `Gravity` is replaced by `gravity.`.
+* `X`, `Y` and `Z` are replaced by their lowercase versions.
+* Any extra dot in the column name (for example, `...`), is replaced by a single dot (`.`).
+* Any final dot in the column name is deleted.
+
 ###Obtaining a data set grouped by subject id and activity label
 
+Using the first tidy data set as a source, the function `getAverageDataBySubjectAndActivity ( )` just performs a `ddply ( )` (package `plyr`) over the columns `subject.id` and `activity.label` to summarize each feature using the mean.
+
 ##Constants
+
+There are certain constants declared in the script to avoid typing errors and to reuse code as much as possible. These are the constantes used through the script:
+
+* `MAIN_DATASET_FOLDER`: Main data set folder, containing the files of the experiment.
+* `TEST_DATASET_NAME`: Sub-folder with the files of the "test" sub-experiment.
+* `TRAIN_DATASET_NAME`: Sub-folder with the files of the "train" sub-experiment.
+* `SUBJECTS_RAW_DATA`: Prefix for the subject files in both sub-experiments.
+* `ACTIVITIES_RAW_DATA`: Prefix for the activities files in both sub-experiments.
+* `FEATURES_RAW_DATA`: Prefix for the features files in both sub-experiments.
+* `FEATURE_NAMES`: Name of the features file.
+* `ACTIVITY_LABELS`: Name of the activity labels file.
+* `MEAN_FEATURE_SNIPPET`: Regular expression to capture mean related features.
+* `STD_FEATURE_SNIPPET`: Regular expression to capture standard deviation related features.
+* `SUBJECT_COL_NAME`: Original column name in the data set regarding the subject ids.
+* `SUBJECT_ID_COL_NAME`: Column name in the tidy data set regarding the subject ids.
+* `ACTIVITY_COL_NAME`: Original column name in the data set regarding the activity ids.
+* `OFFENDING_CHARS_REGEXP`: Regular expression to filter out invalid characters in the feature names.
+* `OFFENDING_CHARS_REPLACEMENT`: Replacement string for the offending characters.
+* `FEATURE_ID_COL_NAME`: Column name in the feature data frame regarding the feature id.
+* `FEATURE_NAME_COL_NAME`: Column name in the feature data frame regarding the feature name.
+* `ACTIVITY_ID_COL_NAME`: Column name in the activity labels data frame regarding the activity id.
+* `ACTIVITY_LABEL_COL_NAME`: Column name in the activity labels data frame regarding the activity label.
 
 ##Auxiliary functions
 

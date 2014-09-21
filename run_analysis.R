@@ -7,7 +7,6 @@
 
 ## Constants.
 ## ----------------------------------------------------------------------------
-DATA_FOLDER <- "./data"
 MAIN_DATASET_FOLDER <- "UCI HAR Dataset"
 TEST_DATASET_NAME <- "test"
 TRAIN_DATASET_NAME <- "train"
@@ -385,6 +384,7 @@ getAverageDataBySubjectAndActivity <- function (data) {
 ##
 ## @return A list with two tidy data sets (data and averageData).
 runAnalysis <- function ( ) {
+	library (plyr)
 	cat ("Running analysis to create the tidy data set...\n")
 
 	cat ("  Loading feature names...")
