@@ -366,13 +366,9 @@ getAverageDataBySubjectAndActivity <- function (data) {
 ## Main function.
 ## ----------------------------------------------------------------------------
 
-## Performs the analysis of the test and train sets to get two tidy data set.
-## The data sets are:
+## Performs the analysis of the test and train sets to get a tidy data set with the mean of each feature for each (subject id/activity label) pair.
 ##
-## * `data`: A tidy data set with mean and standard deviation variables along with activity names and subject ids.
-## * `averageData`: A tidy data set with the mean of each feature for each (subject id/activity label) pair.
-##
-## @return A list with two tidy data sets (data and averageData).
+## @return A tidy data set with the mean of each feature for each (subject id/activity label) pair.
 runAnalysis <- function ( ) {
 	library (plyr)
 	library (data.table)
@@ -418,5 +414,5 @@ runAnalysis <- function ( ) {
 
 	cat ("Analysis finished.\n")
 
-	return (list ("data"=data, "averageData"=averageData))
+	return (averageData)
 }

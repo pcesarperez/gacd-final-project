@@ -36,10 +36,7 @@ We will show the functions in reverse order, to go from the general and most imp
 
 ##Main analysis script
 
-The main analysis script is a function named `runAnalysis ( )`. This function reads certain data files of the experiment and returns a list with two tidy data sets:
-
-* `data`: A tidy data set with mean and standard deviation variables along with activity names and subject ids.
-* `averageData`: A tidy data set with the mean of each feature for each (subject id/activity label) pair.
+The main analysis script is a function named `runAnalysis ( )`. This function reads certain data files of the experiment and returns a tidy data set with the mean of each feature for each (subject id/activity label) pair.
 
 The files read by the function are:
 
